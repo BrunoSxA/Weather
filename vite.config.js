@@ -11,4 +11,11 @@ export default defineConfig({
   preview: {
     open: true
   },
+  root: './src', // Ruta del proyecto
+  build: {
+    outDir: '../dist',
+    rollupOptions: {
+      input: './src/index.html', // Aquí debes especificar la ubicación de tu archivo index.html
+    } // Directorio de salida
+  },
 })
