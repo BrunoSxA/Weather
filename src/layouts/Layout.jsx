@@ -68,8 +68,8 @@ export default function Layout({ children }) {
                     </nav>
                 </div>
 
-                <div className="w-full mx-auto">
-                    <div className="mx-auto px-4 bg-white shadow-md">
+                <div className="mx-auto flex flex-col w-full ml-64">
+                    <div className="mx-autobg-white shadow-md fixed top-0 left-64 w-[calc(100%-64px)] h-16">
                         <div className="relative flex h-16 items-center justify-between">
                             <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
                                 <button id="menu" type="button" className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-0 focus:ring-inset focus:ring-white">
@@ -106,7 +106,7 @@ export default function Layout({ children }) {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div className='mt-16 p-4 h-screen overflow-y-auto'>
                         {children}
                     </div>
                 </div>

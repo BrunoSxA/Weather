@@ -1,186 +1,39 @@
-"use client"
+import React from 'react'
+import Layout from '../layouts/Layout'
 
-import React, { useState, useEffect } from "react"
-import { Home, Building2, MoreHorizontal, Droplets, Wind, Thermometer, Sun, CloudRain } from "lucide-react"
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
-import Layout from "../layouts/Layout"
-
-const cn = (...classes) => classes.filter(Boolean).join(" ")
-
-const Button = React.forwardRef(({ className, variant = "default", size = "default", ...props }, ref) => (
-  <button
-    className={cn(
-      "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
-      variant === "default" && "bg-primary text-primary-foreground hover:bg-primary/90",
-      variant === "ghost" && "hover:bg-accent hover:text-accent-foreground",
-      size === "default" && "h-10 py-2 px-4",
-      size === "icon" && "h-10 w-10",
-      className
-    )}
-    ref={ref}
-    {...props}
-  />
-))
-
-Button.displayName = "Button"
-
-const Card = React.forwardRef(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)} {...props} />
-))
-
-Card.displayName = "Card"
-
-const CardContent = React.forwardRef(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6", className)} {...props} />
-))
-
-CardContent.displayName = "CardContent"
-
-const getWeatherData = () => ({
-  temperature: 31,
-  feelsLike: 30,
-  precipitation: 44,
-  humidity: 52,
-  windSpeed: 12,
-  uvIndex: 6,
-  hourlyForecast: Array.from({ length: 24 }, (_, i) => ({
-    hour: `${i}:00`,
-    temp: Math.floor(Math.random() * 10) + 25,
-    precipitation: Math.floor(Math.random() * 100),
-  })),
-  weeklyForecast: Array.from({ length: 7 }, (_, i) => ({
-    day: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][i],
-    high: Math.floor(Math.random() * 10) + 25,
-    low: Math.floor(Math.random() * 10) + 15,
-  }))
-})
-
-export default function WeatherDashboard() {
-  const [currentTime, setCurrentTime] = useState(new Date())
-  const [weatherData, setWeatherData] = useState(null)
-
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000)
-    return () => clearInterval(timer)
-  }, [])
-
-  useEffect(() => {
-    setWeatherData(getWeatherData())
-  }, [])
-
-  if (!weatherData) return null
-
+export default function Inicio() {
   return (
     <Layout>
-
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-8">
-            <div className="text-6xl font-light text-blue-900 mb-2">
-              {currentTime.toLocaleTimeString("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false,
-              })}
-            </div>
-            <div className="text-xl text-blue-700">
-              {currentTime.toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "short",
-                day: "numeric",
-              })}
-            </div>
-          </div>
-
-          <div className="flex gap-4 mb-8">
-            <Button variant="ghost" className="flex items-center gap-2">
-              <Home className="h-4 w-4" />
-              Home
-            </Button>
-            <Button variant="ghost" className="flex items-center gap-2">
-              <Building2 className="h-4 w-4" />
-              Company
-            </Button>
-          </div>
-
-          <Card className="mb-8 bg-white/80 backdrop-blur">
-            <CardContent>
-              <div className="flex justify-between items-start">
-                <div>
-                  <div className="flex items-center gap-4">
-                    <h2 className="text-2xl font-semibold text-gray-700">Warsaw | Poland</h2>
-                    <Button variant="ghost" size="icon">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="flex items-end gap-4 mt-4">
-                    <span className="text-6xl font-light text-blue-900">{weatherData.temperature}°C</span>
-                    <span className="text-xl text-blue-700 mb-2">Cloudy</span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4 mt-6">
-                    <div className="flex items-center gap-2">
-                      <Thermometer className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm text-gray-600">Feels like: {weatherData.feelsLike}°C</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CloudRain className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm text-gray-600">Precipitation: {weatherData.precipitation}%</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Droplets className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm text-gray-600">Humidity: {weatherData.humidity}%</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Wind className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm text-gray-600">Wind: {weatherData.windSpeed} km/h</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Sun className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm text-gray-600">UV Index: {weatherData.uvIndex}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-8xl text-blue-600">⛅</div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-white/80 backdrop-blur">
-              <CardContent>
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">24-Hour Forecast</h3>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={weatherData.hourlyForecast}>
-                      <XAxis dataKey="hour" />
-                      <YAxis />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="temp" stroke="#3b82f6" strokeWidth={2} dot={false} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/80 backdrop-blur">
-              <CardContent>
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">7-Day Forecast</h3>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={weatherData.weeklyForecast}>
-                      <XAxis dataKey="day" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="high" fill="#3b82f6" />
-                      <Bar dataKey="low" fill="#93c5fd" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, id reiciendis eaque possimus dolorem aliquid corrupti, alias velit placeat aut voluptatibus! Consectetur odio beatae corporis aliquam optio aliquid at accusantium.
+      Dolorum molestiae sit dolores delectus eveniet. Magni provident praesentium ab quisquam ex quam quis unde nostrum commodi error, alias sed modi enim delectus consequatur sint quasi totam! Dicta, dignissimos vero?
+      Odio, non voluptas a nulla quia quo officia fugit consequuntur eum atque blanditiis nisi soluta eveniet fugiat corrupti saepe, id dolore quas quaerat neque consectetur ex harum et voluptate? Eligendi.
+      Aspernatur qui necessitatibus dolor inventore eos consequatur, architecto facilis tempora ipsum neque mollitia molestiae pariatur aliquam veritatis aut aperiam quasi fuga id unde, provident accusantium! Velit facilis officia libero inventore?
+      Repellat aut, adipisci sed dolorem, libero iure tempora, optio hic ipsum neque quisquam! Sint perspiciatis similique nobis! Provident eum, perspiciatis saepe quas quisquam ullam, quidem, sint facere minima magni accusamus?
+      Delectus quia neque a? Recusandae nihil autem amet! Praesentium accusantium dolorem distinctio nesciunt! Ea accusantium nisi fugit cumque earum eius facere in, consequuntur, libero officia exercitationem error sunt nostrum deleniti.
+      Neque eligendi in suscipit ullam nesciunt eaque et non sint nam itaque deserunt laboriosam iusto beatae iure libero, corrupti modi reiciendis nulla minus voluptatem inventore fugiat exercitationem dolore! Temporibus, et?
+      Consequuntur magnam officia consequatur expedita nisi eos animi! Molestiae iste officiis nesciunt veniam aliquid ut dolores, dolorum nostrum doloremque saepe facilis atque eligendi maiores, quo voluptate repellat aut? Neque, eos.
+      Tenetur voluptate ad impedit illum nihil inventore. Velit dignissimos repellendus aliquam, tempora libero facere dolorem maiores deleniti? Ipsam nemo sapiente dolores expedita iure ea, soluta corporis sed recusandae animi provident!
+      Cupiditate velit dolore commodi quis quam? Labore at in dolorum aliquam, expedita porro molestias? Alias harum sed non quidem minus perferendis soluta velit assumenda. Culpa totam dignissimos ut sapiente repudiandae!
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas accusamus, ducimus iste consequuntur ullam officiis dolorem obcaecati saepe nihil repellendus delectus, deserunt blanditiis, mollitia architecto repudiandae ab! Iure, inventore vel?
+      Veniam assumenda nisi eos quibusdam minima qui unde magnam illum commodi? Consequatur cupiditate repellendus facere ex nisi enim architecto eos exercitationem! Laboriosam in architecto fugit necessitatibus? Itaque voluptates impedit iure!
+      Ipsum excepturi adipisci repellat repudiandae dolores porro voluptates, nulla, laudantium unde vitae aliquid officiis odit fugiat, voluptatem inventore! Odit accusantium tempore commodi quaerat ut ex provident architecto, a maiores quia.
+      Totam, sequi eos. Asperiores maiores deserunt adipisci. Numquam fugit laborum minima placeat minus deleniti incidunt sit illo, et dolores quis cumque! Facere cumque, eius consectetur architecto dolorem alias ex doloribus!
+      Repudiandae saepe aperiam perferendis veniam alias quos incidunt nisi libero, voluptatem quisquam voluptates labore autem ducimus hic aliquid corrupti iste dicta qui necessitatibus ab. Nisi ullam magnam at optio illum!
+      Obcaecati id ipsam sint, quaerat mollitia vitae illo deserunt suscipit dolorum voluptas eligendi quisquam nostrum non odit iure esse et labore, officiis dicta commodi atque dolorem molestias? Alias, qui. Nostrum?
+      Vitae quisquam aperiam cupiditate ipsam nulla? Provident facere, ratione mollitia nisi nostrum repellendus expedita suscipit dignissimos vel quidem harum cumque doloribus fugit, tempore a reprehenderit, sit blanditiis dolorum? Non, nihil?
+      Molestiae dolore neque libero, eum ratione, fuga accusantium doloribus laborum mollitia sint quidem? Adipisci amet ea id natus blanditiis aperiam tempora, atque deserunt similique perferendis nemo deleniti dolorem, quasi recusandae.
+      Debitis numquam est rem fugit doloribus ad incidunt dignissimos eveniet consequuntur eligendi eaque voluptatibus vel iusto voluptate voluptas, in nesciunt non. Nulla quisquam maiores rerum pariatur ullam vero iusto ipsam.
+      At dolores quia ipsam est. Amet magnam voluptatum adipisci officiis corrupti. Placeat velit voluptatem sed corporis recusandae optio, ipsum officia voluptas! Itaque sint voluptatem nemo voluptatibus temporibus est modi magni?
+      Excepturi, aliquam neque fugiat blanditiis eius animi mollitia amet odit voluptates expedita aperiam quasi non in voluptate, nihil tempore quod, deleniti commodi quam explicabo iure deserunt necessitatibus vel? Aliquid, deleniti?
+      Excepturi, iure fugit eveniet fugiat odit repudiandae, placeat doloribus, harum provident labore iste accusantium ipsam at atque autem earum dolorem. Dignissimos accusantium ex ipsa error, numquam et repellendus dolorum placeat!
+      Eligendi animi aliquid aut maxime reiciendis at excepturi quia! Temporibus aperiam ad placeat, tempora eveniet distinctio officia aut! Sunt rerum odit quae recusandae esse blanditiis laudantium voluptas obcaecati dolores suscipit?
+      Voluptatibus laboriosam corporis dolorem? Nostrum, culpa nemo? Quaerat, enim perferendis? Officia enim aliquam, at impedit velit corporis repudiandae quae quibusdam iure illum dolorem ullam vitae! Suscipit iusto corrupti non beatae.
+      Fuga repellendus deserunt odit reiciendis nobis ipsum dicta harum, ut magnam quisquam, aliquid ex quasi a, soluta excepturi! Blanditiis quo fugit harum inventore reiciendis debitis amet in tenetur beatae consequuntur?
+      Fuga culpa voluptatem necessitatibus odit adipisci illum perferendis. Ratione, ad? Nostrum dicta maiores similique recusandae, aperiam est velit veritatis officiis nesciunt explicabo. Id itaque totam, ipsa voluptatum ut accusamus error.
+      Voluptas voluptate ea vel quo minus blanditiis repudiandae nisi repellat non, reiciendis cum rem eligendi laudantium quis quas ex deleniti veniam omnis autem cupiditate eaque maiores! Quia ratione id illo.
+      Perspiciatis, quam asperiores? Quos deserunt dignissimos consectetur dolorem magnam expedita amet voluptatem. Qui ad illo enim rem aut perspiciatis voluptates, vero eius. Magni obcaecati nihil labore praesentium nulla ad voluptates?
+      Amet laborum nisi autem quisquam veritatis error iste veniam dolor doloremque cupiditate? Corrupti minus ex perspiciatis? Laudantium veritatis eveniet sapiente consequatur quidem est in. Itaque libero iusto eaque reprehenderit eum.
+      Cupiditate rerum aut delectus, quos odio earum eligendi dolorem illum iure et saepe esse dicta deserunt tempore asperiores error corrupti laboriosam, eius nemo dolores quibusdam nulla aliquid animi. Deleniti, architecto!
     </Layout>
   )
 }
