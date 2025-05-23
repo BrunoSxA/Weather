@@ -1,55 +1,49 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   return (
-    <div className="bg-[#080710] h-screen flex justify-center items-center">
-      <div className='w-[430px] h-[520px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-        <div
-          className='absolute h-[200px] w-[200px] rounded-full'
-          style={{ background: 'linear-gradient(#1845ad, #23a2f6)', left: '-80px', top: '-80px' }}
-        />
-        <div
-          className='absolute h-[200px] w-[200px] rounded-full'
-          style={{ background: 'linear-gradient(to right, #ff512f, #f09819)', right: '-30px', bottom: '-80px' }}
-        />
-        <form
-          className='h-[520px] w-[400px] bg-[#ffffff21] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 rounded-2xl border-[#ffffff1a] backdrop-blur-md shadow-[0_0_40px_rgba(8,7,16,0.6)] p-[50px_35px]'
-        >
-          <div className='font-poppins text-white tracking-[0.5px] outline-none border-none'>
-            <h3 className='text-3xl font-bold text-center'>Login</h3>
+    <div className="relative bg-[#080710] min-h-screen flex justify-center items-center px-4 overflow-hidden">
+      <div className="absolute -top-24 -left-24 h-72 w-72 bg-gradient-to-br from-[#1845ad] to-[#23a2f6] rounded-full blur-3xl opacity-40" />
+      <div className="absolute -bottom-24 -right-16 h-72 w-72 bg-gradient-to-br from-[#ff512f] to-[#f09819] rounded-full blur-3xl opacity-40" />
 
-            <label className='block mt-4 mb-2' htmlFor="username">Nombre de Usuario</label>
+      <div className="relative w-full max-w-md bg-[#ffffff21] border-4 border-[#ffffff1a] backdrop-blur-md shadow-[0_0_40px_rgba(8,7,16,0.6)] rounded-2xl p-6 sm:p-8 md:p-10">
+        <form className="flex flex-col gap-6">
+          <h3 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold text-center">Login</h3>
+
+          <div>
+            <label className="block text-white mb-1" htmlFor="username">Nombre de Usuario</label>
             <input
               type="text"
               id="username"
               placeholder="Email or Phone"
-              className='h-[50px] w-full max-w-md bg-gray-500 border border-white/20 rounded-md px-4 py-2 font-light text-white placeholder-[#e5e5e5] focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300'
+              className="h-12 w-full bg-gray-500 border border-white/20 rounded-md px-4 text-white placeholder-[#e5e5e5] focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300"
             />
+          </div>
 
-            <label className='block mt-4 mb-2' htmlFor="password">Password</label>
+          <div>
+            <label className="block text-white mb-1" htmlFor="password">Password</label>
             <input
               type="password"
-              placeholder="Password"
               id="password"
-              className='h-[50px] w-full bg-white/10 border border-white/20 rounded-md px-4 py-2 font-light text-white placeholder-[#e5e5e5] focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300'
+              placeholder="Password"
+              className="h-12 w-full bg-gray-500  border border-white/20 rounded-md px-4 text-white placeholder-[#e5e5e5] focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300"
             />
-
-            <button className='mt-12 w-full bg-white text-[#080710] py-3 text-lg font-semibold rounded-xl shadow-md hover:bg-gray-100 active:scale-[.98] transition-all duration-300'>
+          </div>
+          <Link to={"/home"}>
+            <button className="mt-2 w-full bg-white text-[#080710] py-3 text-lg font-semibold rounded-xl shadow-md hover:bg-gray-100 active:scale-[.98] transition-all duration-300">
               Log In
             </button>
-
-            <div className="mt-7 flex justify-around">
-              <div className="w-[150px] border rounded-md px-1 py-2.5 bg-[#ffffff45] text-[#eaf0fb] text-center hover:bg-[#ffffff78]">
-                <i className="mr-1 fab fa-google"></i> Google
-              </div>
-              <div className="w-[150px] border rounded-md px-1 py-2.5 bg-[#ffffff45] text-[#eaf0fb] text-center hover:bg-[#ffffff78] ml-6">
-                <i className="mr-1 fab fa-facebook"></i> Facebook
-              </div>
+          </Link>
+          <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4">
+            <div className="flex-1 border rounded-md py-2.5 bg-[#ffffff45] text-[#eaf0fb] text-center hover:bg-[#ffffff78] cursor-pointer">
+              <i className="mr-1 fab fa-google" /> Google
+            </div>
+            <div className="flex-1 border rounded-md py-2.5 bg-[#ffffff45] text-[#eaf0fb] text-center hover:bg-[#ffffff78] cursor-pointer">
+              <i className="mr-1 fab fa-facebook" /> Facebook
             </div>
           </div>
         </form>
       </div>
     </div>
-
   )
 }

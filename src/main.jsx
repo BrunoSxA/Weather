@@ -8,8 +8,8 @@ import Login from './layouts/Login'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<WeatherDashboard />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/home" element={<WeatherDashboard />} />
       <Route path="/test" element={<Test />} />
     </Routes>
   </BrowserRouter>

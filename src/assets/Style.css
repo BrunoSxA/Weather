@@ -16,3 +16,18 @@
 .content {
   padding-top: 60px;
 }
+
+@theme {
+  --color-clim-50: #f5f4fb;
+  --color-clim-100: #eae8f6;
+  --color-clim-200: #cccbec;
+  --color-clim-300: #a09edb;
+  --color-clim-400: #6b69c7;
+  --color-clim-500: #4846b1;
+  --color-clim-600: #393495;
+  --color-clim-700: #302b79;
+  --color-clim-800: #2b2765;
+  --color-clim-900: #292555;
+  --color-clim-950: #080710;
+}
+
