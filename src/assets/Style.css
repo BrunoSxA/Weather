@@ -31,17 +31,6 @@
   --color-clim-950: #080710;
 }
 
-.movie-cover {
-	border-radius: 15px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 1.5rem;
-	text-align: center;
-	padding: 20px;
-	cursor: pointer;
-}
-
 .movie-cover:hover {
 	background: linear-gradient(rgba(57, 255, 20, 0.7), rgba(0, 0, 0, 0.7)),
 		url("https://i.pinimg.com/originals/31/50/96/3150969f612aa55d3c657063a92db45c.gif");
