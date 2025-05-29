@@ -31,11 +31,16 @@
   --color-clim-950: #080710;
 }
 
-.movie-cover:hover {
-	background: linear-gradient(rgba(57, 255, 20, 0.7), rgba(0, 0, 0, 0.7)),
-		url("https://i.pinimg.com/originals/31/50/96/3150969f612aa55d3c657063a92db45c.gif");
-	color: #abebc6;
-	border-color: #39ff14;
+.card-hover {
+  background: linear-gradient(rgba(102, 185, 218, 0.7), rgba(19, 85, 139, 0.7));
+  background-size: cover;
+  background-position: center;
+  transition: all 0.3s ease-in-out;
+  border-color: #66b9da;
+}
 
-	box-shadow: 0 0 20px #39ff14;
+.card-hover:hover {
+  background: linear-gradient(rgba(195, 32, 201, 0.7), rgba(105, 28, 112, 0.7));
+  color: #abebc6;
+  border-color: #c922b3;
 }
